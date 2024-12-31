@@ -13,7 +13,11 @@ author = "Tadahiro Ishisaka"
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["myst_parser"]
+extensions = [
+    "myst_parser",
+    "sphinxcontrib.mermaid",
+    "sphinx_copybutton",
+]
 
 templates_path = ["_templates"]
 exclude_patterns = []
@@ -28,5 +32,14 @@ source_suffix = {
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = "classic"
+html_theme = "furo"
+# html_theme_options = {
+#     "source_repository": "https://github.com/ishisaka/isisaka_com/",
+#     "source_branch": "main",
+#     "source_directory": "source",
+# }
 html_static_path = ["_static"]
+html_title = "isisaka.com"
+
+# -- Options for myst-parser -------------------------------------------------
+myst_fence_as_directive = ["mermaid"]
