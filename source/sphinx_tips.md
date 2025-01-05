@@ -1,3 +1,7 @@
+---
+date: 2025-01-05 16:13
+---
+
 # Sphinx TIPS
 
 ## 公式ドキュメント
@@ -11,6 +15,54 @@
 ## 拡張
 
 * [Mermaid拡張](https://github.com/mgaitan/sphinxcontrib-mermaid)
+* [RSS Feed](https://github.com/lsaffre/sphinxfeed)
+
+### RSS Feed拡張(sphinxfeed)の使い方
+
+1. インストール
+
+```bash
+pip install sphinxfeed-lsaffre
+```
+
+2. `conf.py`に追加
+
+```python
+extensions = [
+    'sphinxfeed',
+]
+...
+feed_base_url = 'https://YOUR_HOST_URL'
+feed_author = 'YOUR NAME'
+feed_description = "A longer description"
+# optional options
+feed_field_name = 'date'  # default value is "Publish Date"
+feed_use_atom = False
+use_dirhtml = False
+```
+
+3. rstファイルの先頭に以下を追加
+
+```rst
+:date: 2025-01-06
+```
+
+MystのMarkdown形式の場合は以下のようにファイルの先頭に追加する。
+
+```text
+---
+date: 2025-01-05
+---
+
+```
+
+4. ビルド
+
+```bash
+make html
+```
+
+注意点としては、`:date`フィールドの値がrss.xmlの日付より未来の場合のみ、rss.xmlに追加されることと対象がrstファイルのみである事。
 
 ## HTML TIPS
 
