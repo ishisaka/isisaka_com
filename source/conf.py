@@ -40,6 +40,8 @@ html_theme = "furo"
 # }
 html_static_path = ["_static"]
 html_title = "isisaka.com"
+html_logo = "_static/images/isisaka.com.png"
+html_favicon = "_static/images/favicon.ico"
 
 # -- Options for myst-parser -------------------------------------------------
 myst_fence_as_directive = ["mermaid"]
