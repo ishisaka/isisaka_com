@@ -13,4 +13,5 @@ Mail: ishisaka@gmail.com
    
    ./profile
    ./tech
+   ./blog/index
 
