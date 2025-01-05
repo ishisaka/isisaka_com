@@ -33,11 +33,11 @@ source_suffix = {
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = "furo"
-# html_theme_options = {
-#     "source_repository": "https://github.com/ishisaka/isisaka_com/",
-#     "source_branch": "main",
-#     "source_directory": "source",
-# }
+html_theme_options = {
+    "source_repository": "https://github.com/ishisaka/isisaka_com/",
+    "source_branch": "main",
+    "source_directory": "source",
+}
 html_static_path = ["_static"]
 html_title = "isisaka.com"
 html_logo = "_static/images/isisaka.com.png"
