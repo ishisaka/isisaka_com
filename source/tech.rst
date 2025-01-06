@@ -10,3 +10,4 @@
    :maxdepth: 1
    
    sphinx_tips
+   ruff_tips
