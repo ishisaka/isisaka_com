@@ -1,4 +1,4 @@
-:date: 2021-01-07T15:19
+:date: 2021-01-08 17:49
 
 ========
 技術情報
@@ -14,3 +14,5 @@ Python
 
    sphinx_tips
    ruff_tips
+   pytest_tips
+
