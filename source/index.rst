@@ -1,4 +1,4 @@
-:date: 2021-01-05 21:28
+:date: 2025-01-08 15:15
 
 ============
 isisaka.com
@@ -9,9 +9,9 @@ isisaka.com
    :keywords: 石坂, ishisaka, blog, tech, personal
 
 
-Blog: https://opcdiary.com
+Blog: https://opcdiary.net
 
-Mail: ishisaka@gmail.com
+Mail: tadahiro@isisaka.com
 
 このサイトでは石坂の個人的なこと、技術的なことについて書いていきます。
 
