@@ -1,4 +1,4 @@
-:date: 2021-01-08 17:49
+:date: 2025-01-17 16:05
 
 ========
 技術情報
@@ -15,4 +15,6 @@ Python
    sphinx_tips
    ruff_tips
    pytest_tips
+   ./python/sqlalchemy
+
 
