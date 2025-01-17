@@ -58,6 +58,10 @@ class Address(Base):
 
 参考: [Declarative Mapping Styles — SQLAlchemy 2\.0 Documentation](https://docs.sqlalchemy.org/en/20/orm/declarative_styles.html)
 
-Mapped[]はテーブルのカラムのPythonの型とSQLAlchemyの型をマッピングするための型ヒントです。
+Mapped[]はテーブルのカラムのPythonの型とSQLAlchemyの型をマッピングするためのクラスです。
 
 mapped_column()は、具体的にSQLでのテーブル定義を行う関数です。インデックスの有無指定や、デフォルト値の指定などができます。
+
+カラムの定義に関しては以下も参考にしてください。
+
+参考: [Table Configuration with Declarative — SQLAlchemy 2\.0 Documentation](https://docs.sqlalchemy.org/en/20/orm/declarative_tables.html#using-annotated-declarative-table-type-annotated-forms-for-mapped-column)
