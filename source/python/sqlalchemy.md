@@ -1,5 +1,5 @@
 ---
-date: 2025-01-24 17:25
+date: 2025-01-24 23:00
 ---
 
 # SQLAlchemy Tips
@@ -148,7 +148,7 @@ class Parent(Base):
     __tablename__ = "parent_table"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    child: Mapped["Child"] = relationship(back_populates="parent")
+    children: Mapped[List["Child"]] = relationship(back_populates="parent")
 
 
 class Child(Base):
@@ -156,24 +156,28 @@ class Child(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     parent_id: Mapped[int] = mapped_column(ForeignKey("parent_table.id"))
-    parent: Mapped["Parent"] = relationship(back_populates="child")
+    parent: Mapped["Parent"] = relationship(back_populates="children")
 ```
 
 n:1のリレーションシップの場合
 
 ```python
+from typing import Optional
+
+
 class Parent(Base):
     __tablename__ = "parent_table"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    child_id: Mapped[int] = mapped_column(ForeignKey("child_table.id"))
-    child: Mapped["Child"] = relationship()
+    child_id: Mapped[Optional[int]] = mapped_column(ForeignKey("child_table.id"))
+    child: Mapped[Optional["Child"]] = relationship(back_populates="parents")
 
 
 class Child(Base):
     __tablename__ = "child_table"
 
     id: Mapped[int] = mapped_column(primary_key=True)
+    parents: Mapped[List["Parent"]] = relationship(back_populates="child")
 ```
 
 n:nのリレーションシップの場合
