@@ -1,5 +1,5 @@
 ---
-date: 2025-01-21 13:25
+date: 2025-01-24 17:25
 ---
 
 # SQLAlchemy Tips
@@ -118,3 +118,151 @@ mapped_column()は、具体的にSQLでのテーブル定義を行う関数で�
 カラムの定義に関しては以下も参考にしてください。
 
 参考: [Table Configuration with Declarative — SQLAlchemy 2\.0 Documentation](https://docs.sqlalchemy.org/en/20/orm/declarative_tables.html#using-annotated-declarative-table-type-annotated-forms-for-mapped-column)
+
+### テーブルのリレーションシップ
+
+参考: [Relationship Configuration — SQLAlchemy 2\.0 Documentation](https://docs.sqlalchemy.org/en/20/orm/relationships.html)
+
+1:1のリレーションシップの場合
+
+```python
+class Parent(Base):
+    __tablename__ = "parent_table"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    children: Mapped[List["Child"]] = relationship(back_populates="parent")
+
+
+class Child(Base):
+    __tablename__ = "child_table"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    parent_id: Mapped[int] = mapped_column(ForeignKey("parent_table.id"))
+    parent: Mapped["Parent"] = relationship(back_populates="children")
+```
+
+1:nのリレーションシップの場合
+
+```python
+class Parent(Base):
+    __tablename__ = "parent_table"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    child: Mapped["Child"] = relationship(back_populates="parent")
+
+
+class Child(Base):
+    __tablename__ = "child_table"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    parent_id: Mapped[int] = mapped_column(ForeignKey("parent_table.id"))
+    parent: Mapped["Parent"] = relationship(back_populates="child")
+```
+
+n:1のリレーションシップの場合
+
+```python
+class Parent(Base):
+    __tablename__ = "parent_table"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    child_id: Mapped[int] = mapped_column(ForeignKey("child_table.id"))
+    child: Mapped["Child"] = relationship()
+
+
+class Child(Base):
+    __tablename__ = "child_table"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+```
+
+n:nのリレーションシップの場合
+
+```python
+from __future__ import annotations
+
+from sqlalchemy import Column
+from sqlalchemy import Table
+from sqlalchemy import ForeignKey
+from sqlalchemy import Integer
+from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import mapped_column
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import relationship
+
+
+class Base(DeclarativeBase):
+    pass
+
+
+# note for a Core table, we use the sqlalchemy.Column construct,
+# not sqlalchemy.orm.mapped_column
+association_table = Table(
+    "association_table",
+    Base.metadata,
+    Column("left_id", ForeignKey("left_table.id")),
+    Column("right_id", ForeignKey("right_table.id")),
+)
+
+
+class Parent(Base):
+    __tablename__ = "left_table"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    children: Mapped[List[Child]] = relationship(secondary=association_table)
+
+
+class Child(Base):
+    __tablename__ = "right_table"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+```
+
+リレーションに関連する事項としてカスケードが有ります。
+
+参考: [Cascades — SQLAlchemy 2\.0 Documentation](https://docs.sqlalchemy.org/en/20/orm/cascades.html#cascade-delete)
+
+カスケードの指示は`relationship()`の引数に`cascade`を指定することで行えます。
+
+参考: [Relationships API — SQLAlchemy 2\.0 Documentation](https://docs.sqlalchemy.org/en/20/orm/relationship_api.html#sqlalchemy.orm.relationship.params.cascade)
+
+以下は、カスケードの機能を使って、親テーブルのデータを削除すると子テーブルのデータも削除される例です。
+
+```python
+class Profile(Base):
+    """ユーザープロフィール"""
+
+    __tablename__ = "user_profiles"
+    id: Mapped[int] = mapped_column(primary_key=True, index=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(unique=True, index=True)
+    date_of_birth: Mapped[Optional[datetime]]
+    gender: Mapped[Optional[str]]
+    occupation: Mapped[Optional[str]]
+    interests: Mapped[list["Interest"]] = relationship(
+        cascade="all, delete", order_by="Interest.id"
+    )
+
+
+class Interest(Base):
+    """ユーザー興味事項"""
+
+    __tablename__ = "user_interests"
+    id: Mapped[int] = mapped_column(primary_key=True, index=True, autoincrement=True)
+    interest: Mapped[str]
+    user_profile_id: Mapped[int] = mapped_column(ForeignKey("user_profiles.id"))
+    profile: Mapped["Profile"] = relationship(back_populates="interests")
+```
+
+リレーションシップを結んだテーブルのデータを取得する場合のサンプルコードです。
+
+```python
+    session = Session(engine)
+    stmt = (
+        select(Profile)
+        .where(Profile.user_id == user_id)
+        .options(joinedload(Profile.interests))
+    )
+    selected_profile = session.scalar(stmt)
+```
+
+`joinedload()`はリレーションシップを結んだテーブルのデータを取得する際に使用します。`joinedload()`は親子のデータをいっぺんにメモリ上にデータを取得するので、メモリの使用量やDBアクセスのパフォーマンスには注意が必要です。
