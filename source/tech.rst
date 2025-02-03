@@ -1,4 +1,4 @@
-:date: 2025-01-17 16:05
+:date: 2025-02-03 10:30
 
 ========
 技術情報
@@ -16,5 +16,14 @@ Python
    ruff_tips
    pytest_tips
    ./python/sqlalchemy
+
+AI/LLM
+======
+
+.. toctree::
+   :maxdepth: 1
+
+   ./ai/index
+
 
 
