@@ -1,4 +1,4 @@
-:date: 2025-02-03 10:30
+:date: 2025-02-26 16:17
 
 ========
 技術情報
@@ -25,5 +25,11 @@ AI/LLM
 
    ./ai/index
 
+Go
+======
 
+.. toctree::
+   :maxdepth: 1
+
+   ./go/index
 
