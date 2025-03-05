@@ -1,5 +1,5 @@
 ---
-date: 2025-03-03 13:44
+date: 2025-03-05 16:38
 description: Go Language
 author: Tadahiro Ishisaka
 ---
@@ -12,3 +12,7 @@ author: Tadahiro Ishisaka
     Goのバイナリを一括でアップデートするためのコマンド。
 * [Staticcheck: go vetコマンドを補完するGo向けリンタの導入](https://zenn.dev/erueru_tech/articles/fd2fa2c3007fe2)
     GoのリンタのStaticcheckの導入方法。
+* [Introduction \| golangci\-lint](https://golangci-lint.run/)
+    Goのリンタのgolangci-lintの導入方法。
+* [gofumpt command \- github\.com/awoodbeck/gofumpt \- Go Packages](https://pkg.go.dev/github.com/awoodbeck/gofumpt#section-readme)
+    Goのフォーマッタのgofumptの導入方法。
