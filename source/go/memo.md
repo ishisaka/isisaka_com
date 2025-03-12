@@ -1,10 +1,12 @@
 ---
-date: 2025-03-05 16:38
+date: 2025-03-12 12:14
 description: Go Language
 author: Tadahiro Ishisaka
 ---
 
 # Go言語のメモ
+
+## ツール系
 
 * [Goのバージョン管理](https://zenn.dev/itoo/articles/output_go_version)
     Goのバージョンアップ方法と複数バージョンの管理について。
@@ -16,3 +18,7 @@ author: Tadahiro Ishisaka
     Goのリンタのgolangci-lintの導入方法。
 * [gofumpt command \- github\.com/awoodbeck/gofumpt \- Go Packages](https://pkg.go.dev/github.com/awoodbeck/gofumpt#section-readme)
     Goのフォーマッタのgofumptの導入方法。
+
+## Go Workspace関連
+
+* [なぜgo\.workはリポジトリにコミットすべきではないのか \#Git \- Qiita](https://qiita.com/h-masano/items/bf7bdfba7c4e8f6b28c4)
