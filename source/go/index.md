@@ -1,5 +1,5 @@
 ---
-date: 2025-02-26 15:55
+date: 2025-06-05 15:55
 title: Go Language
 description: Go Language
 author: Tadahiro Ishisaka
@@ -12,4 +12,5 @@ author: Tadahiro Ishisaka
 
 ./memo
 ./db_orm
+./slog
 ```
